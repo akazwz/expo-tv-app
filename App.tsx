@@ -1,6 +1,7 @@
 import React from 'react'
 import { NativeBaseProvider, StorageManager, ColorMode, extendTheme } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ColorModeExample from './src/Screens/ColorModeExample'
 
 export default function App() {
   // set default color mode
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={customTheme} colorModeManager={colorModeManager}>
+      <ColorModeExample />
     </NativeBaseProvider>
   )
 }
