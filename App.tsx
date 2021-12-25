@@ -1,18 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { NativeBaseProvider, StorageManager, ColorMode, extendTheme } from 'native-base'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function App() {
+  // set default color mode
+  const config = {
+    useSystemColorMode: false,
+    initialColorMode: 'dark',
+  }
+  const customTheme = extendTheme({ config })
+
+  // persisting the color mode
+  const colorModeManager: StorageManager = {
+    get: async() => {
+      try {
+        let val = await AsyncStorage.getItem('@color-mode')
+        return val === 'dark' ? 'dark' : 'light'
+      } catch (e) {
+        return 'light'
+      }
+    },
+    set: async(value: ColorMode) => {
+      try {
+        await AsyncStorage.setItem('@color-mode', value)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+    <NativeBaseProvider theme={customTheme} colorModeManager={colorModeManager}>
+    </NativeBaseProvider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
