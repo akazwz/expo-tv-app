@@ -2,19 +2,19 @@ import {
   Box,
   Divider,
   HStack,
-  VStack,
   Icon,
   Pressable,
-  Spacer,
   Square,
   StatusBar,
   Text,
-  useColorModeValue, Stack
+  Spacer,
+  useColorModeValue
 } from 'native-base'
-import { ReactElement, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
 export type settingOptions = {
+  iconBg: string
   iconName: string
   title: string
   route: string
@@ -26,13 +26,15 @@ const SettingScreen = ({ navigation }) => {
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
   const color = useColorModeValue('#27272a', '#ffffff')
 
-  const [options, setOptions] = useState<settingOptions[]>([
+  const [options] = useState<settingOptions[]>([
     {
+      iconBg: 'lightBlue.500',
       iconName: 'ios-text',
       title: 'Display & Performance',
       route: 'setting',
     },
     {
+      iconBg: 'pink.500',
       iconName: 'ios-language',
       title: 'Languages',
       route: 'languages',
@@ -43,6 +45,7 @@ const SettingScreen = ({ navigation }) => {
     const list = options.map((item: settingOptions) => {
       return (
         <Pressable
+          key={item.route}
           onPress={() => {console.log('You touched me')}}
           bg={bgSecond}
         >
@@ -52,7 +55,7 @@ const SettingScreen = ({ navigation }) => {
             py="10px"
           >
             <HStack alignItems="center" space="10px">
-              <Square key={item.route} bg={useColorModeValue('lightBlue.500', 'darkBlue.500')} size="30px" rounded="lg">
+              <Square bg={item.iconBg} size="30px" rounded="lg">
                 <Icon
                   as={Ionicons}
                   name={item.iconName}
