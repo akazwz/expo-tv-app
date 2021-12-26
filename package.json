@@ -3,6 +3,7 @@
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
     "expo": "^44.0.0",
     "expo-localization": "~12.0.0",
     "i18n-js": "^3.8.0",

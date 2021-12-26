@@ -26,12 +26,23 @@ const SettingScreen = ({ navigation }) => {
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
   const color = useColorModeValue('#27272a', '#ffffff')
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: bgMain,
+      },
+      headerTitleStyle: {
+        color: color,
+      },
+    })
+  }, [navigation, bgMain, color])
+
   const [options] = useState<settingOptions[]>([
     {
       iconBg: 'lightBlue.500',
       iconName: 'ios-text',
       title: 'Display & Performance',
-      route: 'setting',
+      route: 'Display',
     },
     {
       iconBg: 'pink.500',
@@ -46,7 +57,7 @@ const SettingScreen = ({ navigation }) => {
       return (
         <Pressable
           key={item.route}
-          onPress={() => {console.log('You touched me')}}
+          onPress={() => {navigation.navigate(item.route)}}
           bg={bgSecond}
         >
           <Box
@@ -88,16 +99,6 @@ const SettingScreen = ({ navigation }) => {
     return <>{list}</>
   }
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: bgMain,
-      },
-      headerTitleStyle: {
-        color: color,
-      },
-    })
-  }, [navigation, bgMain, color])
   return (
     <Box
       flex={1}
