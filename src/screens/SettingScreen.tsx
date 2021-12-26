@@ -1,24 +1,90 @@
 import {
-  Container,
+  Box,
+  Divider,
+  HStack,
+  VStack,
+  Icon,
+  Pressable,
+  Spacer,
+  Square,
   StatusBar,
   Text,
-  useColorModeValue,
-  Spacer,
-  Center,
-  Box,
-  Pressable,
-  HStack,
-  Icon,
-  Square
+  useColorModeValue, Stack
 } from 'native-base'
-import { useLayoutEffect } from 'react'
+import { ReactElement, useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+
+export type settingOptions = {
+  iconName: string
+  title: string
+  route: string
+}
 
 const SettingScreen = ({ navigation }) => {
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
   const color = useColorModeValue('#27272a', '#ffffff')
+
+  const [options, setOptions] = useState<settingOptions[]>([
+    {
+      iconName: 'ios-text',
+      title: 'Display & Performance',
+      route: 'setting',
+    },
+    {
+      iconName: 'ios-language',
+      title: 'Languages',
+      route: 'languages',
+    }
+  ])
+
+  const OptionsList = () => {
+    const list = options.map((item: settingOptions) => {
+      return (
+        <Pressable
+          onPress={() => {console.log('You touched me')}}
+          bg={bgSecond}
+        >
+          <Box
+            pl="15px"
+            pr="15px"
+            py="10px"
+          >
+            <HStack alignItems="center" space="10px">
+              <Square key={item.route} bg={useColorModeValue('lightBlue.500', 'darkBlue.500')} size="30px" rounded="lg">
+                <Icon
+                  as={Ionicons}
+                  name={item.iconName}
+                  color="coolGray.800"
+                  _dark={{
+                    color: 'warmGray.50',
+                  }}
+                  size="20px"
+                />
+              </Square>
+              <Text bold>
+                {item.title}
+              </Text>
+              <Spacer />
+              <Icon
+                as={Ionicons}
+                name="ios-chevron-forward"
+                color="coolGray.800"
+                _dark={{
+                  color: 'warmGray.50',
+                }}
+                size="xs"
+              />
+            </HStack>
+          </Box>
+          <Divider ml="55px" />
+        </Pressable>
+      )
+    })
+    return <>{list}</>
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -38,43 +104,7 @@ const SettingScreen = ({ navigation }) => {
         barStyle={useColorModeValue('dark-content', 'light-content')}
         backgroundColor={bgMain}
       />
-      <Pressable
-        onPress={() => {console.log('You touched me')}}
-        bg={bgSecond}
-      >
-        <Box
-          pl="4"
-          pr="5"
-          py="2"
-        >
-          <HStack alignItems="center" space={3}>
-            <Square bg={useColorModeValue('lightBlue.500', 'darkBlue.500')} size="xs" rounded="lg">
-              <Icon
-                as={Ionicons}
-                name="ios-text"
-                color="coolGray.800"
-                _dark={{
-                  color: "warmGray.50",
-                }}
-                size="md"
-              />
-            </Square>
-            <Text bold>
-              Display & Performance
-            </Text>
-            <Spacer/>
-            <Icon
-              as={Ionicons}
-              name="ios-chevron-forward"
-              color="coolGray.800"
-              _dark={{
-                color: "warmGray.50",
-              }}
-              size="xs"
-            />
-          </HStack>
-        </Box>
-      </Pressable>
+      <OptionsList />
     </Box>
   )
 }
