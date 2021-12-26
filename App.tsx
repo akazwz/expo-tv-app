@@ -6,6 +6,7 @@ import { NativeBaseProvider, StorageManager, ColorMode, extendTheme, useColorMod
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ColorModeExample from './src/Screens/ColorModeExample'
 import HomeScreen from './src/Screens/HomeScreen'
+import SettingScreen from './src/Screens/SettingScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -73,7 +74,7 @@ export default function App() {
           />
           <Tab.Screen
             name="Setting"
-            component={ColorModeExample}
+            component={SettingScreen}
           />
         </Tab.Navigator>
       </NativeBaseProvider>
