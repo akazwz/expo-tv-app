@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import HomeScreen from './src/screens/HomeScreen'
 import SettingScreen from './src/screens/SettingScreen'
 import DisplaySetting from './src/screens/Settings/DisplaySetting'
+import LanguagesSetting from './src/screens/Settings/LanguagesSetting'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -101,6 +102,13 @@ export default function App() {
             <Stack.Screen
               name="Display"
               component={DisplaySetting}
+              options={{
+                headerTitleAlign: 'center'
+              }}
+            />
+            <Stack.Screen
+              name="Languages"
+              component={LanguagesSetting}
               options={{
                 headerTitleAlign: 'center'
               }}

@@ -48,7 +48,7 @@ const SettingScreen = ({ navigation }) => {
       iconBg: 'pink.500',
       iconName: 'ios-language',
       title: 'Languages',
-      route: 'languages',
+      route: 'Languages',
     }
   ])
 

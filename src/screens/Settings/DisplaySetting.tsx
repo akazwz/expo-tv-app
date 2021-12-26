@@ -22,10 +22,10 @@ const DisplaySetting = ({navigation}) => {
 
   return (
     <>
-      <Center flex={1} bg={useColorModeValue('warmGray.50', 'coolGray.800')}>
+      <Center flex={1} bg={bgMain}>
         <StatusBar
           barStyle={useColorModeValue('dark-content', 'light-content')}
-          backgroundColor={useColorModeValue('#fafaf9', '#1f2937')}
+          backgroundColor={bgMain}
         />
         <Text fontSize="lg" display="flex" mb={20}>
           The active color mode is {' '}
