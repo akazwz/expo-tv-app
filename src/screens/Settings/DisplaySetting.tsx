@@ -1,7 +1,14 @@
-import { Button, Center, StatusBar, Text, useColorMode, useColorModeValue } from 'native-base'
 import { useLayoutEffect } from 'react'
+import {
+  Button,
+  Center,
+  StatusBar,
+  Text,
+  useColorMode,
+  useColorModeValue
+} from 'native-base'
 
-const DisplaySetting = ({navigation}) => {
+const DisplaySetting = ({ navigation }) => {
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
