@@ -8,23 +8,24 @@ import { useLayoutEffect } from 'react'
 
 const HomeScreen = ({ navigation }) => {
   // set navigation props
-  const bg = useColorModeValue('#fafaf9', '#1f2937')
-  const color = useColorModeValue('#1f2937', '#fafaf9')
+  const bgMain = useColorModeValue('#f5f5f4', '#000000')
+  const bgSecond = useColorModeValue('#ffffff', '#18181b')
+  const color = useColorModeValue('#27272a', '#ffffff')
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: bg,
+        backgroundColor: bgMain,
       },
       headerTitleStyle: {
         color: color,
       },
     })
-  }, [navigation, bg, color])
+  }, [navigation, bgMain, color])
   return (
-    <Center flex={1} bg={useColorModeValue('warmGray.50', 'coolGray.800')}>
+    <Center flex={1} bg={bgMain}>
       <StatusBar
         barStyle={useColorModeValue('dark-content', 'light-content')}
-        backgroundColor={useColorModeValue('#fafaf9', '#1f2937')}
+        backgroundColor={bgMain}
       />
       <Text
         bold

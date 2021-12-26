@@ -4,17 +4,16 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeBaseProvider, StorageManager, ColorMode, extendTheme, useColorModeValue } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import ColorModeExample from './src/Screens/ColorModeExample'
-import HomeScreen from './src/Screens/HomeScreen'
-import SettingScreen from './src/Screens/SettingScreen'
+import HomeScreen from './src/screens/HomeScreen'
+import SettingScreen from './src/screens/SettingScreen'
 
 const Tab = createBottomTabNavigator()
+
 
 export default function App() {
   // set default color mode
   const config = {
-    useSystemColorMode: false,
-    initialColorMode: 'dark',
+    useSystemColorMode: true,
   }
   const customTheme = extendTheme({ config })
 
@@ -62,19 +61,25 @@ export default function App() {
             }
             return <Ionicons name={iconName} size={size} color={color} />
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: '#3b82f6',
           tabBarInactiveTintColor: 'grey',
           tabBarStyle: {
-            backgroundColor: useColorModeValue('#fafaf9', '#1f2937'),
+            backgroundColor: useColorModeValue('#fafaf9', '#18181b'),
           },
         })}>
           <Tab.Screen
             name="Home"
             component={HomeScreen}
+            options={{
+              headerTitleAlign: 'center'
+            }}
           />
           <Tab.Screen
             name="Setting"
             component={SettingScreen}
+            options={{
+              headerTitleAlign: 'center'
+            }}
           />
         </Tab.Navigator>
       </NativeBaseProvider>
