@@ -1,9 +1,6 @@
 import { useLayoutEffect } from 'react'
 import {
   AspectRatio,
-  Container,
-  Button,
-  Center,
   StatusBar,
   Text,
   Image,
@@ -11,13 +8,15 @@ import {
   useColorModeValue, HStack, VStack, Icon, Radio, Box
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
-import { useColorScheme } from 'react-native'
 
 const DisplaySetting = ({ navigation }) => {
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
   const color = useColorModeValue('#27272a', '#ffffff')
+
+  const moon = require('../../assets/images/moon2.jpg')
+  const sun = require('../../assets/images/sun3.jpg')
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -57,9 +56,9 @@ const DisplaySetting = ({ navigation }) => {
                 <Text bold m={1}>Light</Text>
                 <AspectRatio w="20" ratio={9 / 16}>
                   <Image
-                    source={{
-                      uri: 'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
-                    }}
+                    source={sun}
+                    w="100%"
+                    h="100%"
                     alt="image"
                     rounded="lg"
                   />
@@ -76,9 +75,9 @@ const DisplaySetting = ({ navigation }) => {
                 <Text bold m={1}>Dark</Text>
                 <AspectRatio w="20" ratio={9 / 16}>
                   <Image
-                    source={{
-                      uri: 'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
-                    }}
+                    source={moon}
+                    w="100%"
+                    h="100%"
                     alt="image"
                     rounded="lg"
                   />
