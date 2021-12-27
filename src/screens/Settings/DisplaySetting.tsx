@@ -1,12 +1,17 @@
 import { useLayoutEffect } from 'react'
 import {
+  AspectRatio,
+  Container,
   Button,
   Center,
   StatusBar,
   Text,
+  Image,
   useColorMode,
-  useColorModeValue
+  useColorModeValue, HStack, VStack, Icon, Radio, Box
 } from 'native-base'
+import { Ionicons } from '@expo/vector-icons'
+import { useColorScheme } from 'react-native'
 
 const DisplaySetting = ({ navigation }) => {
   // set navigation props
@@ -29,11 +34,58 @@ const DisplaySetting = ({ navigation }) => {
 
   return (
     <>
-      <Center flex={1} bg={bgMain}>
+      <Box flex={1} bg={bgMain} alignItems="center">
         <StatusBar
           barStyle={useColorModeValue('dark-content', 'light-content')}
           backgroundColor={bgMain}
         />
+        <Radio.Group
+          name="chose-color-mode"
+          defaultValue={useColorModeValue('light', 'dark')}
+          flexDirection="row"
+          w="60%"
+        >
+          <HStack w="100%" flexDirection="row" justifyContent="space-around" flexWrap="wrap" >
+            <VStack>
+              <Radio
+                value="light"
+                icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
+                accessibilityLabel="light"
+                flexDirection="column-reverse"
+              >
+                <Text bold m={1}>Light</Text>
+                <AspectRatio w="20" ratio={9 / 16}>
+                  <Image
+                    source={{
+                      uri: 'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
+                    }}
+                    alt="image"
+                    rounded="lg"
+                  />
+                </AspectRatio>
+              </Radio>
+            </VStack>
+            <VStack>
+              <Radio
+                value="dark"
+                icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
+                accessibilityLabel="light"
+                flexDirection="column-reverse"
+              >
+                <Text bold m={1}>Dark</Text>
+                <AspectRatio w="20" ratio={9 / 16}>
+                  <Image
+                    source={{
+                      uri: 'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
+                    }}
+                    alt="image"
+                    rounded="lg"
+                  />
+                </AspectRatio>
+              </Radio>
+            </VStack>
+          </HStack>
+        </Radio.Group>
         <Text fontSize="lg" display="flex" mb={20}>
           The active color mode is {' '}
           <Text bold fontSize="18px">
@@ -41,7 +93,7 @@ const DisplaySetting = ({ navigation }) => {
           </Text>
         </Text>
         <Button onPress={toggleColorMode}>Toggle</Button>
-      </Center>
+      </Box>
     </>
   )
 }
