@@ -41,11 +41,12 @@ const DisplaySetting = ({ navigation }) => {
         />
         <Radio.Group
           name="chose-color-mode"
-          defaultValue={useColorModeValue('light', 'dark')}
+          value={useColorModeValue('light', 'dark')}
+          onChange={toggleColorMode}
           flexDirection="row"
           w="60%"
         >
-          <HStack w="100%" flexDirection="row" justifyContent="space-around" flexWrap="wrap" >
+          <HStack w="100%" flexDirection="row" justifyContent="space-around" flexWrap="wrap">
             <VStack>
               <Radio
                 value="light"
@@ -86,13 +87,6 @@ const DisplaySetting = ({ navigation }) => {
             </VStack>
           </HStack>
         </Radio.Group>
-        <Text fontSize="lg" display="flex" mb={20}>
-          The active color mode is {' '}
-          <Text bold fontSize="18px">
-            {useColorModeValue('Light', 'Dark')}
-          </Text>
-        </Text>
-        <Button onPress={toggleColorMode}>Toggle</Button>
       </Box>
     </>
   )
