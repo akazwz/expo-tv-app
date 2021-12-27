@@ -7,12 +7,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   NativeBaseProvider,
-  StorageManager,
-  ColorMode,
   extendTheme,
   useColorModeValue,
-  Progress,
-  Center, HStack, Spinner, Heading
+  StorageManager,
+  ColorMode,
+  Center,
+  HStack,
+  Spinner,
+  Heading,
 } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'

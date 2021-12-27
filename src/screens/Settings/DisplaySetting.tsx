@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react'
+import {useColorScheme} from 'react-native'
 import {
   AspectRatio,
   StatusBar,
@@ -9,8 +10,9 @@ import {
   Icon,
   Radio,
   Box,
+  Flex,
   useColorMode,
-  useColorModeValue, Heading, Container, Flex,
+  useColorModeValue,
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -37,6 +39,7 @@ const DisplaySetting = ({ navigation }) => {
 
   const { toggleColorMode } = useColorMode()
 
+
   return (
     <>
       <Box flex={1} bg={bgMain} alignItems="center">
@@ -46,6 +49,7 @@ const DisplaySetting = ({ navigation }) => {
         />
         <Flex alignItems="flex-start" w="90%" m={2}>
           <Text color={color} fontWeight="100">APPEARANCE</Text>
+          <Text color={color} fontWeight="100">{useColorScheme()}</Text>
         </Flex>
         <Box bg={bgSecond} w="90%" alignItems="center" rounded="lg" p={3}>
           <Radio.Group
