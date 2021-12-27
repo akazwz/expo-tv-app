@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react'
-import {useColorScheme} from 'react-native'
+import { Platform, useColorScheme } from 'react-native'
 import {
   AspectRatio,
   StatusBar,
@@ -57,9 +57,8 @@ const DisplaySetting = ({ navigation }) => {
             value={useColorModeValue('light', 'dark')}
             onChange={toggleColorMode}
             flexDirection="row"
-            w="60%"
           >
-            <HStack w="100%" flexDirection="row" justifyContent="space-around" flexWrap="wrap">
+            <HStack w={Platform.OS === 'web' ? '80vw' : '100%'} flexDirection="row" justifyContent="space-evenly">
               <VStack>
                 <Radio
                   value="light"

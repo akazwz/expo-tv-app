@@ -4,7 +4,10 @@
     "assetBundlePatterns": [
       "assets/images/*"
     ],
-    "name": "",
-    "slug": "1"
+    "name": "expo-app",
+    "slug": "1",
+    "android": {
+      "package": "com.akazwz.expoapp"
+    }
   }
 }
