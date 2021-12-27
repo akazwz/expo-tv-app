@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "plugins": [],
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ],
+    "name": "",
+    "slug": "1"
+  }
+}

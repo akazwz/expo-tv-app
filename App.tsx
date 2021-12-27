@@ -1,7 +1,19 @@
+import { useState } from 'react'
+import AppLoading from 'expo-app-loading'
+import { Image } from 'react-native'
+import { Asset } from 'expo-asset'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NativeBaseProvider, StorageManager, ColorMode, extendTheme, useColorModeValue } from 'native-base'
+import {
+  NativeBaseProvider,
+  StorageManager,
+  ColorMode,
+  extendTheme,
+  useColorModeValue,
+  Progress,
+  Center, HStack, Spinner, Heading
+} from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
 import HomeScreen from './src/screens/HomeScreen'
@@ -61,6 +73,8 @@ const HomeTab = () => {
 }
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false)
+
   // set default color mode
   const config = {
     useSystemColorMode: true,
@@ -84,6 +98,43 @@ export default function App() {
         console.log(e)
       }
     },
+  }
+
+  const cacheImages = (images) => {
+    return images.map(image => {
+      if (typeof image === 'string') {
+        return Image.prefetch(image)
+      } else {
+        return Asset.fromModule(image).downloadAsync()
+      }
+    })
+  }
+
+  const preLoadAssets = async() => {
+    const images = cacheImages([
+      require('./src/assets/images/moon2.jpg'),
+      require('./src/assets/images/sun3.jpg'),
+    ])
+    await Promise.all(images)
+  }
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={preLoadAssets}
+        onFinish={() => {setIsReady(true)}}
+        onError={() => {console.log('err')}}
+      >
+        <Center flex={1}>
+          <HStack space={2} alignItems="center">
+            <Spinner accessibilityLabel="Loading posts" />
+            <Heading color="primary.500" fontSize="md">
+              Loading
+            </Heading>
+          </HStack>
+        </Center>
+      </AppLoading>
+    )
   }
 
   return (
