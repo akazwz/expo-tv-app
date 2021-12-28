@@ -128,8 +128,8 @@ const DisplaySetting = ({ navigation }) => {
                 <Switch isChecked={themeValue.theme.useSystemColorMode} onToggle={() => {
                   const val = themeValue.theme.useSystemColorMode ? 'no' : 'yes'
                   setUseSystemColorModeStorage(val).then(() => {
-                    dispatch(setUseSystemColorMode(!themeValue.theme.useSystemColorMode))
                     setColorMode(colorScheme)
+                    dispatch(setUseSystemColorMode(!themeValue.theme.useSystemColorMode))
                   })
                 }} />
               </Flex>

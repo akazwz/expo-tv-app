@@ -96,7 +96,10 @@ const LanguagesSetting = ({ navigation }) => {
 
   return (
     <>
-      <Box flex={1} bg={bgMain}>
+      <Box
+        flex={1}
+        bg={bgMain}
+      >
         <StatusBar
           barStyle={useColorModeValue('dark-content', 'light-content')}
           backgroundColor={bgMain}
@@ -117,7 +120,13 @@ const LanguagesSetting = ({ navigation }) => {
               </Flex>
             </Box>
           </Pressable>
-          <Actionsheet isOpen={isOpen} onClose={onClose}>
+          <Actionsheet
+            isOpen={isOpen}
+            onClose={onClose}
+            safeArea
+            safeAreaTop={0}
+            safeAreaBottom={0}
+          >
             <Actionsheet.Content>
               <Box w="100%" justifyContent="center" alignItems="center">
                 <Text>
