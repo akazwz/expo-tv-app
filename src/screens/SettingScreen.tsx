@@ -42,21 +42,27 @@ const SettingScreen = ({ navigation }) => {
   const [options, setOptions] = useState<settingOptions[]>([])
 
   useEffect(() => {
-    setOptions([
-      {
-        iconBg: 'lightBlue.500',
-        iconName: 'ios-text',
-        title: i18n.t('setting.display.title'),
-        route: 'Display',
-      },
-      {
-        iconBg: 'pink.500',
-        iconName: 'ios-language',
-        title: i18n.t('setting.languages.title'),
-        route: 'Languages',
-      }
-    ])
-  }, [useSystemTheme().theme.locale])
+    let mounted = true
+    if (mounted) {
+      setOptions([
+        {
+          iconBg: 'lightBlue.500',
+          iconName: 'ios-text',
+          title: i18n.t('setting.display.title'),
+          route: 'Display',
+        },
+        {
+          iconBg: 'pink.500',
+          iconName: 'ios-language',
+          title: i18n.t('setting.languages.title'),
+          route: 'Languages',
+        }
+      ])
+    }
+    return function cleanUp() {
+      mounted = false
+    }
+  }, [useSystemTheme().theme.localeCode])
 
   const OptionsList = () => {
     const list = options.map((item: settingOptions) => {

@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useDisclose,
 } from 'native-base'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
 import { Platform } from 'react-native'
 import i18n from 'i18n-js'
@@ -26,11 +27,8 @@ export type Language = {
   code: string,
 }
 
-
-
 const LanguagesSetting = ({ navigation }) => {
   const dispatch = useAppDispatch()
-
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
@@ -48,6 +46,15 @@ const LanguagesSetting = ({ navigation }) => {
   }, [navigation, bgMain, color])
 
   const { isOpen, onOpen, onClose } = useDisclose()
+
+  const setUserCustomLocaleStorage = async(value: string) => {
+    try {
+      await AsyncStorage.setItem('@storage-custom-locale', value)
+    } catch (e) {
+      console.log('set storage custom locale error:')
+      console.log(e)
+    }
+  }
 
   const LanguagesOptions = () => {
     const languages: Language[] = [
@@ -70,7 +77,9 @@ const LanguagesSetting = ({ navigation }) => {
           alignItems="center"
           justifyContent="center"
           onPress={() => {
-            dispatch(setLocale(item.code))
+            setUserCustomLocaleStorage(item.code).then(() => {
+              dispatch(setLocale(item.code))
+            })
           }}
         >
           <HStack>
@@ -83,7 +92,7 @@ const LanguagesSetting = ({ navigation }) => {
               </Text>
             </VStack>
             <VStack w={Platform.OS === 'web' ? '45vw' : '50%'} alignItems="flex-end" justifyContent="center">
-              {item.code === useSystemTheme().theme.locale
+              {item.code === useSystemTheme().theme.localeCode
                 ? <Icon
                   as={Ionicons}
                   name="ios-checkmark"
@@ -97,14 +106,14 @@ const LanguagesSetting = ({ navigation }) => {
         </Actionsheet.Item>
       )
     })
-
     return (
       <>{list}</>
     )
   }
 
-  const lang = useSystemTheme().theme.locale
+  const lang = useSystemTheme().theme.localeCode
   const langTransCode = lang === 'zh' ? 'chinese' : 'english'
+
   return (
     <>
       <Box

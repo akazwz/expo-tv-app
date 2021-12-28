@@ -22,11 +22,11 @@ import { Provider } from 'react-redux'
 import i18n from 'i18n-js'
 import { store } from './src/redux/store'
 import { useAppDispatch, useSystemTheme } from './src/hooks/redux'
+import { setLocale, setUseSystemColorMode } from './src/redux/theme'
 import HomeScreen from './src/screens/HomeScreen'
 import SettingScreen from './src/screens/SettingScreen'
 import DisplaySetting from './src/screens/Settings/DisplaySetting'
 import LanguagesSetting from './src/screens/Settings/LanguagesSetting'
-import { setLocale, setUseSystemColorMode } from './src/redux/theme'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -36,9 +36,15 @@ const HomeTab = () => {
   const [settingBar, setSettingBar] = useState<string>(i18n.t('tabBar.setting'))
 
   useEffect(() => {
-    setHomeBar(i18n.t('tabBar.home'))
-    setSettingBar(i18n.t('tabBar.setting'))
-  }, [useSystemTheme().theme.locale])
+    let mounted = true
+    if (mounted) {
+      setHomeBar(i18n.t('tabBar.home'))
+      setSettingBar(i18n.t('tabBar.setting'))
+    }
+    return function cleanUp() {
+      mounted = false
+    }
+  }, [useSystemTheme().theme.localeCode])
 
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
@@ -96,7 +102,6 @@ const Container = () => {
   const getAsyncStorageUseSystemUi = async() => {
     try {
       const value = await AsyncStorage.getItem('@storage-use-system-color-mode')
-      console.log('get use system color mode:' + value)
       return value === 'yes'
     } catch (e) {
       return true
@@ -106,8 +111,7 @@ const Container = () => {
   const getAsyncStorageCustomLocale = async() => {
     try {
       const value = await AsyncStorage.getItem('@storage-custom-locale')
-      console.log('get custom locale:' + value)
-      return value
+      return value === 'en' ? 'en' : 'zh'
     } catch (e) {
       return 'en'
     }
@@ -162,7 +166,7 @@ const Container = () => {
     zh: require('./src/assets/languges/zh.json'),
   }
 
-  i18n.locale = useSystemTheme().theme.locale
+  i18n.locale = useSystemTheme().theme.localeCode
 
   i18n.fallbacks = true
 
@@ -224,7 +228,6 @@ const Container = () => {
 }
 
 export default function App() {
-
   return (
     <Provider store={store}>
       <Container />
