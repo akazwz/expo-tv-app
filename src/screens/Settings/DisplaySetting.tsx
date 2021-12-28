@@ -11,12 +11,19 @@ import {
   Radio,
   Box,
   Flex,
+  Spacer,
   useColorMode,
-  useColorModeValue, ScrollView,
+  useColorModeValue, ScrollView, Divider, Switch,
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
+import { useAppDispatch, useSystemTheme } from '../../hooks/redux'
+import { setUseSystemColorMode } from '../../redux/theme'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DisplaySetting = ({ navigation }) => {
+  const themeValue = useSystemTheme()
+  const dispatch = useAppDispatch()
+
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
@@ -25,6 +32,14 @@ const DisplaySetting = ({ navigation }) => {
 
   const moon = require('../../assets/images/moon2.jpg')
   const sun = require('../../assets/images/sun3.jpg')
+
+  const setIsFollowSystemStorage = async(value: 'yes' | 'no') => {
+    try {
+      await AsyncStorage.setItem('@storage_is_follow_system', value)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -37,8 +52,9 @@ const DisplaySetting = ({ navigation }) => {
     })
   }, [navigation, bgMain, color])
 
-  const { toggleColorMode } = useColorMode()
+  const { toggleColorMode, setColorMode } = useColorMode()
 
+  const colorScheme = useColorScheme()
 
   return (
     <>
@@ -51,7 +67,6 @@ const DisplaySetting = ({ navigation }) => {
           <Box alignItems="center">
             <Flex alignItems="flex-start" w="90%" m={2}>
               <Text color={color} fontWeight="100">APPEARANCE</Text>
-              <Text color={color} fontWeight="100">{useColorScheme()}</Text>
             </Flex>
             <Box bg={bgSecond} w="90%" alignItems="center" rounded="lg" p={3}>
               <Radio.Group
@@ -59,6 +74,7 @@ const DisplaySetting = ({ navigation }) => {
                 value={useColorModeValue('light', 'dark')}
                 onChange={toggleColorMode}
                 flexDirection="row"
+                mb={4}
               >
                 <HStack w={Platform.OS === 'web' ? '80vw' : '100%'} flexDirection="row" justifyContent="space-evenly">
                   <VStack>
@@ -67,6 +83,7 @@ const DisplaySetting = ({ navigation }) => {
                       icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
                       accessibilityLabel="light"
                       flexDirection="column-reverse"
+                      isDisabled={themeValue.theme.useSystemColorMode}
                     >
                       <Text bold m={3}>Light</Text>
                       <AspectRatio w="20" ratio={9 / 16}>
@@ -86,6 +103,7 @@ const DisplaySetting = ({ navigation }) => {
                       icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
                       accessibilityLabel="light"
                       flexDirection="column-reverse"
+                      isDisabled={themeValue.theme.useSystemColorMode}
                     >
                       <Text bold m={3}>Dark</Text>
                       <AspectRatio w="20" ratio={9 / 16}>
@@ -101,6 +119,17 @@ const DisplaySetting = ({ navigation }) => {
                   </VStack>
                 </HStack>
               </Radio.Group>
+              <Divider />
+              <HStack alignItems="center">
+                <Text>FOLLOW SYSTEM</Text>
+                <Spacer />
+                <Switch isChecked={themeValue.theme.useSystemColorMode} onToggle={() => {
+                  const val = themeValue.theme.useSystemColorMode ? 'yes' :'no'
+                  dispatch(setUseSystemColorMode(!themeValue.theme.useSystemColorMode))
+                  setIsFollowSystemStorage(val).then()
+                  setColorMode(colorScheme)
+                }} />
+              </HStack>
             </Box>
           </Box>
         </ScrollView>

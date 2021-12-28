@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import AppLoading from 'expo-app-loading'
 import { Image } from 'react-native'
+import AppLoading from 'expo-app-loading'
 import { Asset } from 'expo-asset'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -18,6 +18,9 @@ import {
 } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
+import { Provider } from 'react-redux'
+import { store } from './src/redux/store'
+import { useSystemTheme } from './src/hooks/redux'
 import HomeScreen from './src/screens/HomeScreen'
 import SettingScreen from './src/screens/SettingScreen'
 import DisplaySetting from './src/screens/Settings/DisplaySetting'
@@ -74,12 +77,13 @@ const HomeTab = () => {
   )
 }
 
-export default function App() {
+const Container = () => {
   const [isReady, setIsReady] = useState(false)
+  const themeValue = useSystemTheme()
 
   // set default color mode
   const config = {
-    useSystemColorMode: true,
+    useSystemColorMode: themeValue.theme.useSystemColorMode,
   }
   const customTheme = extendTheme({ config })
 
@@ -141,7 +145,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <NativeBaseProvider theme={customTheme} colorModeManager={colorModeManager}>
+      <NativeBaseProvider
+        theme={customTheme}
+        colorModeManager={themeValue.theme.useSystemColorMode ? null : colorModeManager}
+      >
         <Stack.Navigator initialRouteName="Index">
           {/*tab screen*/}
           <Stack.Screen
@@ -169,6 +176,14 @@ export default function App() {
         </Stack.Navigator>
       </NativeBaseProvider>
     </NavigationContainer>
+  )
+}
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Container />
+    </Provider>
   )
 }
 
