@@ -15,6 +15,7 @@ import {
   useDisclose,
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
+import { Platform } from 'react-native'
 
 export type Language = {
   name: string,
@@ -45,7 +46,7 @@ const LanguagesSetting = ({ navigation }) => {
     const languages: Language[] = [
       {
         name: '中文',
-        transName: 'English',
+        transName: 'Chinese',
         code: 'ZH',
       },
       {
@@ -63,7 +64,7 @@ const LanguagesSetting = ({ navigation }) => {
           justifyContent="center"
         >
           <HStack>
-            <VStack w="50%">
+            <VStack w={Platform.OS === 'web' ? '45vw' : '50%'}>
               <Text>
                 {item.name}
               </Text>
@@ -71,8 +72,7 @@ const LanguagesSetting = ({ navigation }) => {
                 {item.transName}
               </Text>
             </VStack>
-
-            <VStack w="50%" alignItems="flex-end" justifyContent="center">
+            <VStack w={Platform.OS === 'web' ? '45vw' : '50%'} alignItems="flex-end" justifyContent="center">
               {item.code === 'ZH'
                 ? <Icon
                   as={Ionicons}
@@ -82,7 +82,6 @@ const LanguagesSetting = ({ navigation }) => {
                 />
                 : null
               }
-
             </VStack>
           </HStack>
         </Actionsheet.Item>
