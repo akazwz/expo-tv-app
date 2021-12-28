@@ -69,7 +69,7 @@ const DisplaySetting = ({ navigation }) => {
             <Flex alignItems="flex-start" w="90%" m={2}>
               <Text color={color} fontWeight="100">APPEARANCE</Text>
             </Flex>
-            <Box bg={bgSecond} w="90%" alignItems="center" rounded="lg" p={3}>
+            <Box bg={bgSecond} w="90%" alignItems="center" rounded="lg" pt={3} pl={3} pr={3}>
               <Radio.Group
                 name="chose-color-mode"
                 value={useColorModeValue('light', 'dark')}
@@ -121,7 +121,8 @@ const DisplaySetting = ({ navigation }) => {
                 </HStack>
               </Radio.Group>
               <Divider />
-              <HStack alignItems="center">
+              {/*android have margin*/}
+              <Flex w="100%" flexDirection="row" alignItems="center" m={Platform.OS === 'android' ? 0 : 3}>
                 <Text>FOLLOW SYSTEM</Text>
                 <Spacer />
                 <Switch isChecked={themeValue.theme.useSystemColorMode} onToggle={() => {
@@ -131,7 +132,7 @@ const DisplaySetting = ({ navigation }) => {
                     setColorMode(colorScheme)
                   })
                 }} />
-              </HStack>
+              </Flex>
             </Box>
           </Box>
         </ScrollView>

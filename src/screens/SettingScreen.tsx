@@ -12,6 +12,7 @@ import {
 } from 'native-base'
 import { useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import { SafeAreaView } from 'react-native'
 
 export type settingOptions = {
   iconBg: string
@@ -100,16 +101,18 @@ const SettingScreen = ({ navigation }) => {
   }
 
   return (
-    <Box
-      flex={1}
-      bg={bgMain}
-    >
-      <StatusBar
-        barStyle={useColorModeValue('dark-content', 'light-content')}
-        backgroundColor={bgMain}
-      />
-      <OptionsList />
-    </Box>
+      <Box
+        flex={1}
+        bg={bgMain}
+        safeArea
+        safeAreaTop={0}
+      >
+        <StatusBar
+          barStyle={useColorModeValue('dark-content', 'light-content')}
+          backgroundColor={bgMain}
+        />
+        <OptionsList />
+      </Box>
   )
 }
 

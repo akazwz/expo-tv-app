@@ -22,7 +22,12 @@ const HomeScreen = ({ navigation }) => {
     })
   }, [navigation, bgMain, color])
   return (
-    <Center flex={1} bg={bgMain}>
+    <Center
+      flex={1}
+      bg={bgMain}
+      safeArea
+      safeAreaTop={0}
+    >
       <StatusBar
         barStyle={useColorModeValue('dark-content', 'light-content')}
         backgroundColor={bgMain}
