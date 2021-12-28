@@ -20,11 +20,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import { store } from './src/redux/store'
-import { useSystemTheme } from './src/hooks/redux'
+import { useAppDispatch, useSystemTheme } from './src/hooks/redux'
 import HomeScreen from './src/screens/HomeScreen'
 import SettingScreen from './src/screens/SettingScreen'
 import DisplaySetting from './src/screens/Settings/DisplaySetting'
 import LanguagesSetting from './src/screens/Settings/LanguagesSetting'
+import { setUseSystemColorMode } from './src/redux/theme'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -80,6 +81,16 @@ const HomeTab = () => {
 const Container = () => {
   const [isReady, setIsReady] = useState(false)
   const themeValue = useSystemTheme()
+  const dispatch = useAppDispatch()
+  const getAsyncStorageUseSystemUi = async() => {
+    try {
+      const value = await AsyncStorage.getItem('@storage-use-system-color-mode')
+      console.log('get use system color mode:' + value)
+      return value === 'yes'
+    } catch (e) {
+      return true
+    }
+  }
 
   // set default color mode
   const config = {
@@ -122,6 +133,7 @@ const Container = () => {
       require('./src/assets/images/sun3.jpg'),
     ])
     await Promise.all(images)
+    await dispatch(setUseSystemColorMode(await getAsyncStorageUseSystemUi()))
   }
 
   if (!isReady) {

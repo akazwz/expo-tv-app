@@ -33,10 +33,11 @@ const DisplaySetting = ({ navigation }) => {
   const moon = require('../../assets/images/moon2.jpg')
   const sun = require('../../assets/images/sun3.jpg')
 
-  const setIsFollowSystemStorage = async(value: 'yes' | 'no') => {
+  const setUseSystemColorModeStorage = async(value: 'yes' | 'no') => {
     try {
-      await AsyncStorage.setItem('@storage_is_follow_system', value)
+      await AsyncStorage.setItem('@storage-use-system-color-mode', value)
     } catch (e) {
+      console.log('set storage use system color mode error:')
       console.log(e)
     }
   }
@@ -124,10 +125,11 @@ const DisplaySetting = ({ navigation }) => {
                 <Text>FOLLOW SYSTEM</Text>
                 <Spacer />
                 <Switch isChecked={themeValue.theme.useSystemColorMode} onToggle={() => {
-                  const val = themeValue.theme.useSystemColorMode ? 'yes' :'no'
-                  dispatch(setUseSystemColorMode(!themeValue.theme.useSystemColorMode))
-                  setIsFollowSystemStorage(val).then()
-                  setColorMode(colorScheme)
+                  const val = themeValue.theme.useSystemColorMode ? 'no' : 'yes'
+                  setUseSystemColorModeStorage(val).then(() => {
+                    dispatch(setUseSystemColorMode(!themeValue.theme.useSystemColorMode))
+                    setColorMode(colorScheme)
+                  })
                 }} />
               </HStack>
             </Box>
