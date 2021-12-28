@@ -16,6 +16,9 @@ import {
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import { Platform } from 'react-native'
+import i18n from 'i18n-js'
+import { useAppDispatch, useSystemTheme } from '../../hooks/redux'
+import { setLocale } from '../../redux/theme'
 
 export type Language = {
   name: string,
@@ -23,7 +26,22 @@ export type Language = {
   code: string,
 }
 
+const languages: Language[] = [
+  {
+    name: '中文',
+    transName: i18n.t('setting.languages.chinese'),
+    code: 'zh',
+  },
+  {
+    name: 'English',
+    transName: i18n.t('setting.languages.english'),
+    code: 'en',
+  },
+]
+
 const LanguagesSetting = ({ navigation }) => {
+  const dispatch = useAppDispatch()
+
   // set navigation props
   const bgMain = useColorModeValue('#f5f5f4', '#000000')
   const bgSecond = useColorModeValue('#ffffff', '#18181b')
@@ -43,25 +61,15 @@ const LanguagesSetting = ({ navigation }) => {
   const { isOpen, onOpen, onClose } = useDisclose()
 
   const LanguagesOptions = () => {
-    const languages: Language[] = [
-      {
-        name: '中文',
-        transName: 'Chinese',
-        code: 'ZH',
-      },
-      {
-        name: 'English',
-        transName: 'English',
-        code: 'EN',
-      },
-    ]
-
     const list = languages.map((item) => {
       return (
         <Actionsheet.Item
           key={item.code}
           alignItems="center"
           justifyContent="center"
+          onPress={() => {
+            dispatch(setLocale(item.code))
+          }}
         >
           <HStack>
             <VStack w={Platform.OS === 'web' ? '45vw' : '50%'}>
@@ -73,7 +81,7 @@ const LanguagesSetting = ({ navigation }) => {
               </Text>
             </VStack>
             <VStack w={Platform.OS === 'web' ? '45vw' : '50%'} alignItems="flex-end" justifyContent="center">
-              {item.code === 'ZH'
+              {item.code === useSystemTheme().theme.locale
                 ? <Icon
                   as={Ionicons}
                   name="ios-checkmark"
@@ -93,6 +101,8 @@ const LanguagesSetting = ({ navigation }) => {
     )
   }
 
+  const lang = useSystemTheme().theme.locale
+  const langTransCode = lang === 'zh' ? 'chinese' : 'english'
   return (
     <>
       <Box
@@ -107,9 +117,11 @@ const LanguagesSetting = ({ navigation }) => {
           <Pressable w="100%" alignItems="center" onPress={onOpen}>
             <Box w="90%" bg={bgSecond} rounded="lg">
               <Flex flexDirection="row" alignItems="center" textAlign="left" p={3}>
-                <Text>APP Language</Text>
+                <Text>{i18n.t('setting.languages.appLanguage')}</Text>
                 <Spacer />
-                <Text color={colorFontSecond}>Chinese</Text>
+                <Text color={colorFontSecond}>
+                  {i18n.t('setting.languages.' + langTransCode)}
+                </Text>
                 <Icon
                   as={Ionicons}
                   name="ios-chevron-forward"
@@ -129,7 +141,7 @@ const LanguagesSetting = ({ navigation }) => {
             <Actionsheet.Content>
               <Box w="100%" justifyContent="center" alignItems="center">
                 <Text>
-                  APP Languages
+                  {i18n.t('setting.languages.appLanguage')}
                 </Text>
               </Box>
               <LanguagesOptions />

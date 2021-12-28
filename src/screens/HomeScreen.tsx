@@ -1,10 +1,11 @@
+import { useLayoutEffect } from 'react'
 import {
   Center,
   StatusBar,
   Text,
   useColorModeValue
 } from 'native-base'
-import { useLayoutEffect } from 'react'
+import i18n from 'i18n-js'
 
 const HomeScreen = ({ navigation }) => {
   // set navigation props
@@ -38,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
         display="flex"
         mb={20}
       >
-        Home Screen
+        {i18n.t('home.title')}
       </Text>
     </Center>
   )

@@ -1,0 +1,24 @@
+{
+  "tabBar": {
+    "home": "Home",
+    "setting": "Setting"
+  },
+  "home": {
+    "title": "Home Screen"
+  },
+  "setting": {
+    "display": {
+      "setting": "Display",
+      "appearance": "APPEARANCE",
+      "light": "Light",
+      "dark": "Dark",
+      "followSystem": "Follow SYSTEM"
+    },
+    "languages": {
+      "title": "Languages",
+      "appLanguage": "APP Languages",
+      "chinese": "Chinese",
+      "english": "English"
+    }
+  }
+}

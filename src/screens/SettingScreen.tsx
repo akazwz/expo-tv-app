@@ -12,7 +12,7 @@ import {
 } from 'native-base'
 import { useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { SafeAreaView } from 'react-native'
+import i18n from 'i18n-js'
 
 export type settingOptions = {
   iconBg: string
@@ -42,13 +42,13 @@ const SettingScreen = ({ navigation }) => {
     {
       iconBg: 'lightBlue.500',
       iconName: 'ios-text',
-      title: 'Display & Performance',
+      title: i18n.t('setting.display.title'),
       route: 'Display',
     },
     {
       iconBg: 'pink.500',
       iconName: 'ios-language',
-      title: 'Languages',
+      title: i18n.t('setting.languages.title'),
       route: 'Languages',
     }
   ])

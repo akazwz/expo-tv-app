@@ -16,6 +16,7 @@ import {
   useColorModeValue, ScrollView, Divider, Switch,
 } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
+import i18n from 'i18n-js'
 import { useAppDispatch, useSystemTheme } from '../../hooks/redux'
 import { setUseSystemColorMode } from '../../redux/theme'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -67,7 +68,7 @@ const DisplaySetting = ({ navigation }) => {
         <ScrollView>
           <Box alignItems="center">
             <Flex alignItems="flex-start" w="90%" m={2}>
-              <Text color={color} fontWeight="100">APPEARANCE</Text>
+              <Text color={color} fontWeight="100">{i18n.t('setting.display.appearance')}</Text>
             </Flex>
             <Box bg={bgSecond} w="90%" alignItems="center" rounded="lg" pt={3} pl={3} pr={3}>
               <Radio.Group
@@ -82,11 +83,11 @@ const DisplaySetting = ({ navigation }) => {
                     <Radio
                       value="light"
                       icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
-                      accessibilityLabel="light"
+                      accessibilityLabel={i18n.t('setting.display.light')}
                       flexDirection="column-reverse"
                       isDisabled={themeValue.theme.useSystemColorMode}
                     >
-                      <Text bold m={3}>Light</Text>
+                      <Text bold m={3}>{i18n.t('setting.display.light')}</Text>
                       <AspectRatio w="20" ratio={9 / 16}>
                         <Image
                           source={sun}
@@ -102,11 +103,11 @@ const DisplaySetting = ({ navigation }) => {
                     <Radio
                       value="dark"
                       icon={<Icon as={<Ionicons name="ios-checkmark" />} />}
-                      accessibilityLabel="light"
+                      accessibilityLabel={i18n.t('setting.display.dark')}
                       flexDirection="column-reverse"
                       isDisabled={themeValue.theme.useSystemColorMode}
                     >
-                      <Text bold m={3}>Dark</Text>
+                      <Text bold m={3}>{i18n.t('setting.display.dark')}</Text>
                       <AspectRatio w="20" ratio={9 / 16}>
                         <Image
                           source={moon}
@@ -123,7 +124,7 @@ const DisplaySetting = ({ navigation }) => {
               <Divider />
               {/*android have margin*/}
               <Flex w="100%" flexDirection="row" alignItems="center" m={Platform.OS === 'android' ? 0 : 3}>
-                <Text>FOLLOW SYSTEM</Text>
+                <Text>{i18n.t('setting.display.followSystem')}</Text>
                 <Spacer />
                 <Switch isChecked={themeValue.theme.useSystemColorMode} onToggle={() => {
                   const val = themeValue.theme.useSystemColorMode ? 'no' : 'yes'

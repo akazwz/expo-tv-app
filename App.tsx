@@ -19,13 +19,14 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
+import i18n from 'i18n-js'
 import { store } from './src/redux/store'
 import { useAppDispatch, useSystemTheme } from './src/hooks/redux'
 import HomeScreen from './src/screens/HomeScreen'
 import SettingScreen from './src/screens/SettingScreen'
 import DisplaySetting from './src/screens/Settings/DisplaySetting'
 import LanguagesSetting from './src/screens/Settings/LanguagesSetting'
-import { setUseSystemColorMode } from './src/redux/theme'
+import { setLocale, setUseSystemColorMode } from './src/redux/theme'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -64,14 +65,16 @@ const HomeTab = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          title: i18n.t('tabBar.home'),
         }}
       />
       <Tab.Screen
         name="Setting"
         component={SettingScreen}
         options={{
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          title: i18n.t('tabBar.setting'),
         }}
       />
     </Tab.Navigator>
@@ -92,12 +95,21 @@ const Container = () => {
     }
   }
 
+  const getAsyncStorageCustomLocale = async() => {
+    try {
+      const value = await AsyncStorage.getItem('@storage-custom-locale')
+      console.log('get custom locale:' + value)
+      return value
+    } catch (e) {
+      return 'en'
+    }
+  }
+
   // set default color mode
   const config = {
     useSystemColorMode: themeValue.theme.useSystemColorMode,
   }
   const customTheme = extendTheme({ config })
-
   // persisting the color mode
   const colorModeManager: StorageManager = {
     get: async() => {
@@ -132,9 +144,19 @@ const Container = () => {
       require('./src/assets/images/moon2.jpg'),
       require('./src/assets/images/sun3.jpg'),
     ])
+    dispatch(setUseSystemColorMode(await getAsyncStorageUseSystemUi()))
+    dispatch(setLocale(await getAsyncStorageCustomLocale()))
     await Promise.all(images)
-    await dispatch(setUseSystemColorMode(await getAsyncStorageUseSystemUi()))
   }
+
+  i18n.translations = {
+    en: require('./src/assets/languges/en.json'),
+    zh: require('./src/assets/languges/zh.json'),
+  }
+
+  i18n.locale = useSystemTheme().theme.locale
+
+  i18n.fallbacks = true
 
   if (!isReady) {
     return (
@@ -174,14 +196,16 @@ const Container = () => {
               name="Display"
               component={DisplaySetting}
               options={{
-                headerTitleAlign: 'center'
+                headerTitleAlign: 'center',
+                title: i18n.t('setting.display.title'),
               }}
             />
             <Stack.Screen
               name="Languages"
               component={LanguagesSetting}
               options={{
-                headerTitleAlign: 'center'
+                headerTitleAlign: 'center',
+                title: i18n.t('setting.languages.title'),
               }}
             />
           </Stack.Group>
@@ -192,6 +216,7 @@ const Container = () => {
 }
 
 export default function App() {
+
   return (
     <Provider store={store}>
       <Container />
