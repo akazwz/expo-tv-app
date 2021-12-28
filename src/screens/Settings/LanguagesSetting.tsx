@@ -26,18 +26,7 @@ export type Language = {
   code: string,
 }
 
-const languages: Language[] = [
-  {
-    name: '中文',
-    transName: i18n.t('setting.languages.chinese'),
-    code: 'zh',
-  },
-  {
-    name: 'English',
-    transName: i18n.t('setting.languages.english'),
-    code: 'en',
-  },
-]
+
 
 const LanguagesSetting = ({ navigation }) => {
   const dispatch = useAppDispatch()
@@ -61,6 +50,19 @@ const LanguagesSetting = ({ navigation }) => {
   const { isOpen, onOpen, onClose } = useDisclose()
 
   const LanguagesOptions = () => {
+    const languages: Language[] = [
+      {
+        name: '中文',
+        transName: i18n.t('setting.languages.chinese'),
+        code: 'zh',
+      },
+      {
+        name: 'English',
+        transName: i18n.t('setting.languages.english'),
+        code: 'en',
+      },
+    ]
+
     const list = languages.map((item) => {
       return (
         <Actionsheet.Item

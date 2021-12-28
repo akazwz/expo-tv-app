@@ -10,9 +10,10 @@ import {
   Spacer,
   useColorModeValue
 } from 'native-base'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
+import { useSystemTheme } from '../hooks/redux'
 
 export type settingOptions = {
   iconBg: string
@@ -38,20 +39,24 @@ const SettingScreen = ({ navigation }) => {
     })
   }, [navigation, bgMain, color])
 
-  const [options] = useState<settingOptions[]>([
-    {
-      iconBg: 'lightBlue.500',
-      iconName: 'ios-text',
-      title: i18n.t('setting.display.title'),
-      route: 'Display',
-    },
-    {
-      iconBg: 'pink.500',
-      iconName: 'ios-language',
-      title: i18n.t('setting.languages.title'),
-      route: 'Languages',
-    }
-  ])
+  const [options, setOptions] = useState<settingOptions[]>([])
+
+  useEffect(() => {
+    setOptions([
+      {
+        iconBg: 'lightBlue.500',
+        iconName: 'ios-text',
+        title: i18n.t('setting.display.title'),
+        route: 'Display',
+      },
+      {
+        iconBg: 'pink.500',
+        iconName: 'ios-language',
+        title: i18n.t('setting.languages.title'),
+        route: 'Languages',
+      }
+    ])
+  }, [useSystemTheme().theme.locale])
 
   const OptionsList = () => {
     const list = options.map((item: settingOptions) => {
@@ -101,18 +106,18 @@ const SettingScreen = ({ navigation }) => {
   }
 
   return (
-      <Box
-        flex={1}
-        bg={bgMain}
-        safeArea
-        safeAreaTop={0}
-      >
-        <StatusBar
-          barStyle={useColorModeValue('dark-content', 'light-content')}
-          backgroundColor={bgMain}
-        />
-        <OptionsList />
-      </Box>
+    <Box
+      flex={1}
+      bg={bgMain}
+      safeArea
+      safeAreaTop={0}
+    >
+      <StatusBar
+        barStyle={useColorModeValue('dark-content', 'light-content')}
+        backgroundColor={bgMain}
+      />
+      <OptionsList />
+    </Box>
   )
 }
 

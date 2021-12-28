@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Image } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import { Asset } from 'expo-asset'
@@ -32,6 +32,14 @@ const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 const HomeTab = () => {
+  const [homeBar, setHomeBar] = useState<string>(i18n.t('tabBar.home'))
+  const [settingBar, setSettingBar] = useState<string>(i18n.t('tabBar.setting'))
+
+  useEffect(() => {
+    setHomeBar(i18n.t('tabBar.home'))
+    setSettingBar(i18n.t('tabBar.setting'))
+  }, [useSystemTheme().theme.locale])
+
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
@@ -66,7 +74,7 @@ const HomeTab = () => {
         component={HomeScreen}
         options={{
           headerTitleAlign: 'center',
-          title: i18n.t('tabBar.home'),
+          title: homeBar,
         }}
       />
       <Tab.Screen
@@ -74,7 +82,7 @@ const HomeTab = () => {
         component={SettingScreen}
         options={{
           headerTitleAlign: 'center',
-          title: i18n.t('tabBar.setting'),
+          title: settingBar,
         }}
       />
     </Tab.Navigator>

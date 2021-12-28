@@ -8,7 +8,7 @@
   },
   "setting": {
     "display": {
-      "setting": "Display",
+      "title": "Display",
       "appearance": "APPEARANCE",
       "light": "Light",
       "dark": "Dark",
