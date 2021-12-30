@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useState } from 'react'
 import {
   Box,
   Divider,
@@ -10,7 +11,6 @@ import {
   Spacer,
   useColorModeValue
 } from 'native-base'
-import { useEffect, useLayoutEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
 import { useSystemTheme } from '../hooks/redux'

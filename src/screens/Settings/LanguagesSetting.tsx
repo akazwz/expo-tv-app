@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react'
+import { Platform } from 'react-native'
 import {
   Actionsheet,
   Box,
@@ -16,7 +17,6 @@ import {
 } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Ionicons } from '@expo/vector-icons'
-import { Platform } from 'react-native'
 import i18n from 'i18n-js'
 import { useAppDispatch, useSystemTheme } from '../../hooks/redux'
 import { setLocale } from '../../redux/theme'
