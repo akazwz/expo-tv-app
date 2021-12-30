@@ -41,13 +41,14 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         <AspectRatio w="100%" ratio={16 / 9}>
           <Video
-            source={{ uri: 'http://39.134.115.163:8080/PLTV/88888910/224/3221225618/index.m3u8' }}
+            source={{ uri: 'http://cctvalih5ca.v.myalicdn.com/live/cctv10_2/index.m3u8' }}
             rate={1.0}
             volume={1.0}
             isMuted={false}
             resizeMode="cover"
             shouldPlay
             isLooping
+            useNativeControls
           />
         </AspectRatio>
       </ScrollView>
