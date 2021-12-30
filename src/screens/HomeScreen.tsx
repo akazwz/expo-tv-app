@@ -1,11 +1,13 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import {
-  Center,
+  AspectRatio,
+  Box,
+  ScrollView,
   StatusBar,
-  Text,
   useColorModeValue
 } from 'native-base'
 import i18n from 'i18n-js'
+import { Video } from 'expo-av'
 
 const HomeScreen = ({ navigation }) => {
   // set navigation props
@@ -22,8 +24,11 @@ const HomeScreen = ({ navigation }) => {
       },
     })
   }, [navigation, bgMain, color])
+
+  const videoRef = useRef(null)
+
   return (
-    <Center
+    <Box
       flex={1}
       bg={bgMain}
       safeArea
@@ -33,15 +38,20 @@ const HomeScreen = ({ navigation }) => {
         barStyle={useColorModeValue('dark-content', 'light-content')}
         backgroundColor={bgMain}
       />
-      <Text
-        bold
-        fontSize="lg"
-        display="flex"
-        mb={20}
-      >
-        {i18n.t('home.title')}
-      </Text>
-    </Center>
+      <ScrollView>
+        <AspectRatio w="100%" ratio={16 / 9}>
+          <Video
+            source={{ uri: 'http://39.134.115.163:8080/PLTV/88888910/224/3221225618/index.m3u8' }}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
+          />
+        </AspectRatio>
+      </ScrollView>
+    </Box>
   )
 }
 
