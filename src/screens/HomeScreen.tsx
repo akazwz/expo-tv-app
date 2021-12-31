@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import {
   Animated,
   useWindowDimensions,
@@ -10,7 +10,7 @@ import {
   HStack,
   ScrollView,
   Text,
-  Pressable,
+  Pressable, useColorModeValue,
 } from 'native-base'
 
 const CCTVRoute = () => (
@@ -70,7 +70,23 @@ const renderScene = SceneMap({
   music: MusicRoute,
 })
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
+  // set navigation props
+  const bgMain = useColorModeValue('#f5f5f4', '#000000')
+  const bgSecond = useColorModeValue('#ffffff', '#18181b')
+  const color = useColorModeValue('#27272a', '#ffffff')
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: bgMain,
+      },
+      headerTitleStyle: {
+        color: color,
+      },
+    })
+  }, [navigation, bgMain, color])
+
   const layout = useWindowDimensions()
   const [index, setIndex] = useState(0)
   const [routes] = useState([
@@ -93,6 +109,7 @@ export default function HomeScreen() {
         h="50px"
         maxH="50px"
         showsHorizontalScrollIndicator={false}
+        bg={bgMain}
       >
         {props.navigationState.routes.map((route, i) => {
           const opacity = props.position.interpolate({
