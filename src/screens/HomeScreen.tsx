@@ -1,35 +1,64 @@
 import { useRef, useState } from 'react'
 import {
-  View,
   Animated,
-  Pressable,
   useWindowDimensions,
 } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
-import { Box, Center, HStack, ScrollView } from 'native-base'
+import {
+  Box,
+  Center,
+  HStack,
+  ScrollView,
+  Text,
+  Pressable,
+} from 'native-base'
 
 const CCTVRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
+  <Center flex={1} bg="blue.200">
+    <Text>
+      CCTV
+    </Text>
+  </Center>
 )
 
 const ProvinceRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+  <Center flex={1} bg="blue.300">
+    <Text>
+      Province TV
+    </Text>
+  </Center>
 )
 
 const LocalRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#07ffa8' }} />
+  <Center flex={1} bg="blue.400">
+    <Text>
+      Local TV
+    </Text>
+  </Center>
 )
 
 const HKRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#07ffa8' }} />
+  <Center flex={1} bg="blue.500">
+    <Text>
+      HK TV
+    </Text>
+  </Center>
 )
 
 const WorldRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#07ffa8' }} />
+  <Center flex={1} bg="blue.600">
+    <Text>
+      World TV
+    </Text>
+  </Center>
 )
 
 const MusicRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#07ffa8' }} />
+  <Center flex={1} bg="blue.700">
+    <Text>
+      MUSIC TV
+    </Text>
+  </Center>
 )
 
 const renderScene = SceneMap({
