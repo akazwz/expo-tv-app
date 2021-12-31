@@ -123,18 +123,18 @@ export default function HomeScreen({ navigation }) {
           const show = index === i
 
           return (
-            <Box
-              key={route.title}
-              flex={1}
-              alignItems="center"
-              p="3"
-              w="100px"
+            <Pressable
+              onPress={() => {
+                console.log(i)
+                setIndex(i)
+              }}
             >
-              <Pressable
-                onPress={() => {
-                  console.log(i)
-                  setIndex(i)
-                }}
+              <Box
+                key={route.title}
+                flex={1}
+                alignItems="center"
+                p="3"
+                w="100px"
               >
                 <Animated.Text style={{ color: color }}>{route.title}</Animated.Text>
                 {show
@@ -150,8 +150,8 @@ export default function HomeScreen({ navigation }) {
                   </Center>
                   : null
                 }
-              </Pressable>
-            </Box>
+              </Box>
+            </Pressable>
           )
         })}
       </ScrollView>
