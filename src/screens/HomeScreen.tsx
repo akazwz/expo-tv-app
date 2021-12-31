@@ -124,13 +124,13 @@ export default function HomeScreen({ navigation }) {
 
           return (
             <Pressable
+              key={route.title}
               onPress={() => {
                 console.log(i)
                 setIndex(i)
               }}
             >
               <Box
-                key={route.title}
                 flex={1}
                 alignItems="center"
                 p="3"
