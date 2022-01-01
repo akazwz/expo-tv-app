@@ -12,12 +12,11 @@ import {
   Text,
   Pressable, useColorModeValue,
 } from 'native-base'
+import ChannelList from '../components/ChannelList'
 
 const CCTVRoute = () => (
   <Center flex={1} bg="blue.200">
-    <Text>
-      CCTV
-    </Text>
+    <ChannelList />
   </Center>
 )
 
