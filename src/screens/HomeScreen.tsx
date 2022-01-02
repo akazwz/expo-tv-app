@@ -11,14 +11,14 @@ import {
   ScrollView,
   Text,
   Pressable,
-  useColorModeValue,
+  useColorModeValue, View, Container,
 } from 'native-base'
 import ChannelList from '../components/ChannelList'
 
 const CCTVRoute = () => (
-  <ScrollView flex={1} px="3" bg="blue.200">
+  <Center flex={1} px="3" bg="blue.200">
     <ChannelList />
-  </ScrollView>
+  </Center>
 )
 
 const ProvinceRoute = () => (
