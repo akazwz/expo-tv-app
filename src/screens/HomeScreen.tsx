@@ -10,14 +10,15 @@ import {
   HStack,
   ScrollView,
   Text,
-  Pressable, useColorModeValue,
+  Pressable,
+  useColorModeValue,
 } from 'native-base'
 import ChannelList from '../components/ChannelList'
 
 const CCTVRoute = () => (
-  <Center flex={1} bg="blue.200">
+  <ScrollView flex={1} px="3" bg="blue.200">
     <ChannelList />
-  </Center>
+  </ScrollView>
 )
 
 const ProvinceRoute = () => (
